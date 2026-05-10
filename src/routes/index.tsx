@@ -552,11 +552,29 @@ function Index() {
 
         {/* FOOTER */}
         <footer className="relative border-t border-border py-12 bg-background/80 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-6 flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
-            <div>© 2026 the bu1ld · all systems nominal</div>
-            <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-green animate-pulse" />
-              live
+          <div className="mx-auto max-w-7xl px-6 grid gap-8 md:grid-cols-3 font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            <div className="space-y-3">
+              <div className="text-bone"><Wordmark /></div>
+              <div>© 2026 the bu1ld · all systems nominal</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-bone/70">navigate</div>
+              <div className="grid grid-cols-2 gap-y-1 gap-x-6">
+                <a href="#research" className="hover:text-bone transition">Research</a>
+                <a href="#programs" className="hover:text-bone transition">Programs</a>
+                <a href="#startups" className="hover:text-bone transition">Startups</a>
+                <a href="#manifesto" className="hover:text-bone transition">Manifesto</a>
+                <a href="#updates" className="hover:text-bone transition">Updates</a>
+                <a href="#faq" className="hover:text-bone transition">FAQ</a>
+              </div>
+            </div>
+            <div className="space-y-2 md:text-right">
+              <div className="text-bone/70">signal</div>
+              <div className="flex md:justify-end items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent-green animate-pulse" />
+                live · cohort 04 in flight
+              </div>
+              <div><a href="https://discord.gg/NG4QYat4P" className="hover:text-bone transition">discord</a> · <a href="mailto:ryan@thebu1ld.com" className="hover:text-bone transition">email</a></div>
             </div>
           </div>
         </footer>
