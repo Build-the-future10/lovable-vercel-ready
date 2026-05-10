@@ -20,25 +20,32 @@ export function GenesisIntro({ onDone }: { onDone: () => void }) {
 
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = 1;
 
     let w = window.innerWidth;
     let h = window.innerHeight;
 
     const fit = () => {
-      w = window.innerWidth;
-      h = window.innerHeight;
+  w = Math.min(window.innerWidth, 2560);
+  h = Math.min(window.innerHeight, 1440);
 
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
+  const scaledWidth = Math.floor(w * dpr);
+  const scaledHeight = Math.floor(h * dpr);
 
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
+  if (
+    canvas.width !== scaledWidth ||
+    canvas.height !== scaledHeight
+  ) {
+    canvas.width = scaledWidth;
+    canvas.height = scaledHeight;
 
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
 
-    fit();
+    ctx.resetTransform();
+    ctx.scale(dpr, dpr);
+  }
+};
 
     window.addEventListener("resize", fit);
 
