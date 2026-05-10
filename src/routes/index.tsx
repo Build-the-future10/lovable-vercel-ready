@@ -83,6 +83,71 @@ const STATS = [
   ["Stanford · MIT · UC", "research collaborators"],
 ];
 
+const MANIFESTO = [
+  {
+    n: "01",
+    title: "Ship beats publish.",
+    body: "Papers are evidence, not the goal. Every thread closes with a working artifact: a model, a demo, a deployed system, a company.",
+  },
+  {
+    n: "02",
+    title: "Rigor without ritual.",
+    body: "We measure twice, ablate honestly, and reject benchmarks that don't predict downstream behavior. Theatre is the enemy of progress.",
+  },
+  {
+    n: "03",
+    title: "Builders of any age.",
+    body: "Sixteen or sixty, what matters is taste, throughput, and the willingness to be wrong in public. The lab is judged by output, not credentials.",
+  },
+  {
+    n: "04",
+    title: "Open by default.",
+    body: "Our reference code is public. Our threads are documented. Closed work exists only when a venture requires it, and only for as long as it must.",
+  },
+];
+
+const UPDATES = [
+  { date: "2026 · Q2", tag: "release", text: "Residual Event Tokenizer v0.3 open-sourced; 4.1× compression on driving video at parity loss." },
+  { date: "2026 · Q2", tag: "spinout", text: "NeuroCad raises seed; first paying customers in industrial CAD." },
+  { date: "2026 · Q1", tag: "paper", text: "Phase Transitions in Neural PDE Surrogates accepted to ICLR workshop track." },
+  { date: "2026 · Q1", tag: "cohort", text: "AI Builder Cohort 04 onboarded · 38 builders, 11 cities, 6 universities." },
+  { date: "2025 · Q4", tag: "lab", text: "Latent Tongue thread launched in collaboration with Stanford NLP." },
+];
+
+const FAQ = [
+  {
+    q: "Who is this for?",
+    a: "Engineers and researchers who want to do work that compounds. We bias toward people who already ship — open-source maintainers, paper authors, indie founders, students who built something real.",
+  },
+  {
+    q: "Do I need to be in a specific city?",
+    a: "No. The Bu1ld is distributed. We meet weekly online, run quarterly in-person intensives, and host pop-up residencies near our university partners.",
+  },
+  {
+    q: "Is there a fee?",
+    a: "No. Programs are free for accepted members. We're funded by spin-out equity, research grants, and infra partners.",
+  },
+  {
+    q: "What does an application look like?",
+    a: "Send work, not a résumé. A repo, a paper, a demo video, a deployed product. We read everything.",
+  },
+];
+
+const VOICES = [
+  {
+    quote: "I joined to read papers. I left with a co-founder, a deployed model, and a thread of research I'll spend the next decade on.",
+    who: "Builder, Cohort 02",
+  },
+  {
+    quote: "It is the only place I've seen where a 19-year-old and a tenured professor argue about loss curves as peers and both come away sharper.",
+    who: "PhD collaborator, MIT",
+  },
+  {
+    quote: "We went from a thread on Discord to a funded company in eleven weeks. The pressure-testing was brutal, in the best possible way.",
+    who: "Founder, NeuroCad",
+  },
+];
+
 const stageColor: Record<string, string> = {
   research: "text-bone border-bone/40",
   prototype: "text-accent-green border-accent-green/40",
@@ -400,10 +465,4 @@ function Index() {
   );
 }
 
-export default function Home() {
-  return (
-    <div style={{ padding: "40px", color: "white", background: "black", minHeight: "100vh" }}>
-      The Bu1ld
-    </div>
-  );
-}
+
