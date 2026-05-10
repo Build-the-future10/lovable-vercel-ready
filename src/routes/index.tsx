@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { GenesisIntro } from "@/components/GenesisIntro";
 import { NeuralField } from "@/components/NeuralField";
@@ -240,7 +240,7 @@ const textAccent: Record<string, string> = {
   bone: "text-bone",
 };
 
-function SectionLabel({ id, children }: { id: string; children: React.ReactNode }) {
+function SectionLabel({ id, children }: { id: string; children: ReactNode }) {
   return (
     <div className="font-mono text-[11px] tracking-[0.3em] uppercase text-muted-foreground">
       <span className="text-bone/60">// {id}</span> &nbsp; {children}
