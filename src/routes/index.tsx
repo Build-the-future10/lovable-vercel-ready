@@ -505,7 +505,7 @@ function Index() {
         {/* CONTACT */}
         <section id="contact" className="relative py-32 border-t border-border overflow-hidden">
           <div className="relative mx-auto max-w-4xl px-6 text-center">
-            <SectionLabel id="06">contact</SectionLabel>
+            <SectionLabel id="10">contact</SectionLabel>
             <h2 className="font-display text-5xl md:text-7xl mt-6 tracking-tight leading-[1]">
               Build with <Wordmark />.
             </h2>
