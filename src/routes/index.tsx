@@ -1,11 +1,60 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { GenesisIntro } from "@/components/GenesisIntro";
 import { NeuralField } from "@/components/NeuralField";
 import { Wordmark } from "@/components/Wordmark";
 
 export const Route = createFileRoute("/")({
+  head: () => {
+    const title = "The Bu1ld — ML Research × Startup Hub";
+    const description =
+      "The Bu1ld is a hybrid AI lab and startup ecosystem. 100+ researchers, engineers, and founders shipping frontier ML systems with collaborators from Stanford, MIT, and UC.";
+    const url = "https://thebu1ld.com/";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { name: "keywords", content: "machine learning, AI lab, research, startups, world models, foundation models, ML cohort, Stanford, MIT, UC" },
+        { name: "author", content: "The Bu1ld" },
+        { name: "theme-color", content: "#050505" },
+        { name: "robots", content: "index, follow, max-image-preview:large" },
+        { property: "og:type", content: "website" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:site_name", content: "The Bu1ld" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                name: "The Bu1ld",
+                url,
+                description,
+                sameAs: ["https://discord.gg/NG4QYat4P"],
+                email: "ryan@thebu1ld.com",
+              },
+              {
+                "@type": "WebSite",
+                url,
+                name: "The Bu1ld",
+                description,
+              },
+            ],
+          }),
+        },
+      ],
+    };
+  },
   component: Index,
 });
 
