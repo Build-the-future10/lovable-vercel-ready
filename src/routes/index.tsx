@@ -201,6 +201,8 @@ function Index() {
             <a href="#research" className="hover:text-bone transition">Research</a>
             <a href="#programs" className="hover:text-bone transition">Programs</a>
             <a href="#startups" className="hover:text-bone transition">Startups</a>
+            <a href="#manifesto" className="hover:text-bone transition">Manifesto</a>
+            <a href="#updates" className="hover:text-bone transition">Updates</a>
             <a href="#team" className="hover:text-bone transition">Team</a>
             <a href="#contact" className="hover:text-bone transition">Contact</a>
           </nav>
