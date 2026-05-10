@@ -635,14 +635,49 @@ function Index() {
           <div className="mx-auto max-w-5xl px-6">
             <SectionLabel id="09">faq</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl mt-4 tracking-tight">Frequently considered.</h2>
-            <dl className="mt-14 divide-y divide-border border-y border-border">
-              {FAQ.map((f, i) => (
-                <div key={i} className="py-8 grid md:grid-cols-12 gap-6">
-                  <dt className="md:col-span-5 font-display text-xl text-bone">{f.q}</dt>
-                  <dd className="md:col-span-7 text-muted-foreground leading-relaxed">{f.a}</dd>
-                </div>
-              ))}
-            </dl>
+            <ul className="mt-14 divide-y divide-border border-y border-border">
+              {FAQ.map((f, i) => {
+                const open = openFaq === i;
+                return (
+                  <li key={i}>
+                    <button
+                      onClick={() => setOpenFaq(open ? null : i)}
+                      className="w-full py-7 flex items-center justify-between gap-6 text-left group"
+                      aria-expanded={open}
+                    >
+                      <span className="flex items-baseline gap-5">
+                        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent-blue">
+                          0{i + 1}
+                        </span>
+                        <span className="font-display text-xl md:text-2xl text-bone">{f.q}</span>
+                      </span>
+                      <motion.span
+                        animate={{ rotate: open ? 45 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-2xl text-bone/70 group-hover:text-bone"
+                      >
+                        +
+                      </motion.span>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {open && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <p className="pb-8 pl-14 pr-10 max-w-3xl text-muted-foreground leading-relaxed">
+                            {f.a}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </section>
 
