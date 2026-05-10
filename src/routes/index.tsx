@@ -182,6 +182,28 @@ const FAQ = [
   },
 ];
 
+const TICKER = [
+  "Cohort 04 in flight",
+  "Residual Event Tokenizer v0.3 shipped",
+  "NeuroCad → seed",
+  "PDE phase-transition paper @ ICLR",
+  "Latent Tongue thread × Stanford NLP",
+  "Open-source by default",
+  "Stanford · MIT · UC",
+  "Builders of any age",
+];
+
+const NAV = [
+  { id: "what", label: "What" },
+  { id: "research", label: "Research" },
+  { id: "programs", label: "Programs" },
+  { id: "startups", label: "Startups" },
+  { id: "manifesto", label: "Manifesto" },
+  { id: "updates", label: "Updates" },
+  { id: "faq", label: "FAQ" },
+  { id: "contact", label: "Contact" },
+];
+
 const VOICES = [
   {
     quote: "I joined to read papers. I left with a co-founder, a deployed model, and a thread of research I'll spend the next decade on.",
