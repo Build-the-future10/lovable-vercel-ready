@@ -404,6 +404,104 @@ function Index() {
           </div>
         </section>
 
+        {/* MANIFESTO */}
+        <section id="manifesto" className="relative py-32 border-t border-border bg-background/60 backdrop-blur-sm">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionLabel id="06">manifesto</SectionLabel>
+            <h2 className="font-display text-4xl md:text-5xl mt-4 tracking-tight max-w-3xl">
+              Four lines we will not cross.
+            </h2>
+            <div className="mt-14 grid md:grid-cols-2 gap-px bg-border/40 border border-border/40">
+              {MANIFESTO.map((m) => (
+                <div key={m.n} className="bg-background/80 p-8 hover:bg-card/60 transition">
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-accent-blue">{m.n}</span>
+                    <h3 className="font-display text-2xl md:text-3xl text-bone">{m.title}</h3>
+                  </div>
+                  <p className="mt-4 text-muted-foreground leading-relaxed">{m.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* UPDATES / TIMELINE */}
+        <section id="updates" className="relative py-32 border-t border-border bg-background/60 backdrop-blur-sm">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="flex items-end justify-between flex-wrap gap-6">
+              <div>
+                <SectionLabel id="07">signal log</SectionLabel>
+                <h2 className="font-display text-4xl md:text-5xl mt-4 tracking-tight">Recent telemetry.</h2>
+              </div>
+              <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground">live feed</p>
+            </div>
+            <div className="mt-14 relative">
+              <div className="absolute left-3 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-accent-blue/40 to-transparent" />
+              <ul className="space-y-10">
+                {UPDATES.map((u, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                    className={`relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-12 ${i % 2 === 0 ? "" : "md:[&>div:first-child]:order-2"}`}
+                  >
+                    <span className="absolute left-2 md:left-1/2 top-2 -translate-x-1/2 h-3 w-3 rounded-full bg-accent-blue glow-blue" />
+                    <div className="md:text-right md:pr-12">
+                      <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground">{u.date}</div>
+                      <div className={`font-mono text-[10px] tracking-[0.25em] uppercase mt-1 ${u.tag === "release" ? "text-accent-green" : u.tag === "spinout" ? "text-accent-red" : u.tag === "paper" ? "text-accent-blue" : "text-bone"}`}>{u.tag}</div>
+                    </div>
+                    <div className="md:pl-12 mt-2 md:mt-0">
+                      <p className="text-foreground/90 leading-relaxed">{u.text}</p>
+                    </div>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* VOICES */}
+        <section id="voices" className="relative py-32 border-t border-border bg-background/60 backdrop-blur-sm">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionLabel id="08">voices</SectionLabel>
+            <h2 className="font-display text-4xl md:text-5xl mt-4 tracking-tight">From inside the lab.</h2>
+            <div className="mt-14 grid md:grid-cols-3 gap-4">
+              {VOICES.map((v, i) => (
+                <motion.figure
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}
+                  className="p-8 border border-border bg-card/50 backdrop-blur-md rounded-sm hover:border-bone/40 transition"
+                >
+                  <div className="font-display text-3xl text-accent-blue leading-none">&ldquo;</div>
+                  <blockquote className="mt-3 text-foreground/90 leading-relaxed text-[15px]">{v.quote}</blockquote>
+                  <figcaption className="mt-6 font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">— {v.who}</figcaption>
+                </motion.figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="relative py-32 border-t border-border bg-background/60 backdrop-blur-sm">
+          <div className="mx-auto max-w-5xl px-6">
+            <SectionLabel id="09">faq</SectionLabel>
+            <h2 className="font-display text-4xl md:text-5xl mt-4 tracking-tight">Frequently considered.</h2>
+            <dl className="mt-14 divide-y divide-border border-y border-border">
+              {FAQ.map((f, i) => (
+                <div key={i} className="py-8 grid md:grid-cols-12 gap-6">
+                  <dt className="md:col-span-5 font-display text-xl text-bone">{f.q}</dt>
+                  <dd className="md:col-span-7 text-muted-foreground leading-relaxed">{f.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
         {/* CONTACT */}
         <section id="contact" className="relative py-32 border-t border-border overflow-hidden">
           <div className="relative mx-auto max-w-4xl px-6 text-center">
