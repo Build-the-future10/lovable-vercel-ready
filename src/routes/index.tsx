@@ -250,10 +250,39 @@ function SectionLabel({ id, children }: { id: string; children: React.ReactNode 
 
 function Index() {
   const [intro, setIntro] = useState(true);
+  const [active, setActive] = useState<string>("top");
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.3 });
+  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -80]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0.2]);
+
+  useEffect(() => {
+    const ids = ["top", ...NAV.map((n) => n.id)];
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-accent-blue/30">
       {intro && <GenesisIntro onDone={() => setIntro(false)} />}
+
+      {/* SCROLL PROGRESS */}
+      <motion.div
+        style={{ scaleX: progress }}
+        className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left bg-gradient-to-r from-accent-red via-accent-blue to-accent-green"
+      />
 
       {/* GLOBAL FLOW FIELD: dots all around the entire site */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -268,14 +297,21 @@ function Index() {
             <Wordmark />
           </a>
           <nav className="hidden md:flex items-center gap-8 font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground">
-            <a href="#what" className="hover:text-bone transition">What we do</a>
-            <a href="#research" className="hover:text-bone transition">Research</a>
-            <a href="#programs" className="hover:text-bone transition">Programs</a>
-            <a href="#startups" className="hover:text-bone transition">Startups</a>
-            <a href="#manifesto" className="hover:text-bone transition">Manifesto</a>
-            <a href="#updates" className="hover:text-bone transition">Updates</a>
-            <a href="#team" className="hover:text-bone transition">Team</a>
-            <a href="#contact" className="hover:text-bone transition">Contact</a>
+            {NAV.map((n) => (
+              <a
+                key={n.id}
+                href={`#${n.id}`}
+                className={`relative transition ${active === n.id ? "text-bone" : "hover:text-bone"}`}
+              >
+                {n.label}
+                {active === n.id && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-accent-blue"
+                  />
+                )}
+              </a>
+            ))}
           </nav>
           <a
             href="https://discord.gg/NG4QYat4P"
@@ -291,14 +327,22 @@ function Index() {
       <div className="relative z-10">
         {/* HERO */}
         <section id="top" className="relative min-h-screen flex items-center overflow-hidden pt-24">
+          <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
           <div className="relative mx-auto max-w-7xl px-6 w-full">
             <motion.div
+              style={{ y: heroY, opacity: heroOpacity }}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.2 }}
               className="max-w-5xl"
             >
-              <SectionLabel id="00">a research × startup hub</SectionLabel>
+              <div className="flex items-center gap-4">
+                <SectionLabel id="00">a research × startup hub</SectionLabel>
+                <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent-green animate-pulse" />
+                  cohort 04 · live
+                </span>
+              </div>
               <h1 className="font-display font-bold mt-6 text-[clamp(2.5rem,7.5vw,7rem)] leading-[0.95] tracking-tight">
                 <Wordmark />
                 <span className="block text-foreground/90 mt-4">
@@ -307,9 +351,11 @@ function Index() {
                 </span>
               </h1>
               <p className="mt-8 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-                The Bu1ld is a hybrid AI lab and startup ecosystem. 100+ researchers, engineers, and founders
-                of all ages, collaborating with professors and PhD researchers from Stanford, MIT, and UC,
-                building, finding, and scaling ML driven products together.
+                A hybrid AI lab and startup ecosystem. 100+ researchers, engineers, and founders of all ages,
+                co-advised by professors and PhD researchers from <span className="text-bone">Stanford</span>,
+                <span className="text-bone"> MIT</span>, and <span className="text-bone">UC</span> — finding,
+                building, and scaling ML systems together. Five active research threads. Five startups in flight.
+                One operating principle: <span className="text-bone italic">ship beats publish</span>.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <a href="#contact" className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm bg-bone text-background font-mono text-xs tracking-[0.25em] uppercase hover:bg-accent-blue transition glow-bone">
@@ -330,8 +376,35 @@ function Index() {
                 </div>
               ))}
             </div>
+
+            {/* scroll cue */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.6, duration: 1 }}
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground"
+            >
+              scroll
+              <motion.span
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                className="h-6 w-px bg-bone/40"
+              />
+            </motion.div>
           </div>
         </section>
+
+        {/* TICKER */}
+        <div className="relative border-y border-border bg-background/70 backdrop-blur-sm overflow-hidden">
+          <div className="flex animate-ticker whitespace-nowrap py-3 font-mono text-[11px] tracking-[0.3em] uppercase text-muted-foreground">
+            {[...TICKER, ...TICKER].map((t, i) => (
+              <span key={i} className="px-8 flex items-center gap-8">
+                <span className="h-1 w-1 rounded-full bg-accent-blue" />
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
 
         {/* WHAT WE DO */}
         <section id="what" className="relative py-32 border-t border-border bg-background/60 backdrop-blur-sm">
